@@ -1,0 +1,229 @@
+/* ===========================
+   ALERT MODAL STYLES
+   =========================== */
+
+.alert-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+  animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ===========================
+   MODAL BOX
+   =========================== */
+
+.alert-modal {
+  background: var(--white);
+  border-radius: 16px;
+  padding: 32px;
+  max-width: 440px;
+  width: 100%;
+  position: relative;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===========================
+   CLOSE BUTTON
+   =========================== */
+
+.modal-close-button {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  background: var(--off-white);
+  color: var(--gray-medium);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.modal-close-button:hover {
+  background: var(--gray-light);
+  color: var(--text-primary);
+}
+
+/* ===========================
+   MODAL ICON
+   =========================== */
+
+.modal-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+}
+
+.alert-modal.info .modal-icon {
+  background: rgba(52, 152, 219, 0.1);
+  color: #3498db;
+}
+
+.alert-modal.warning .modal-icon {
+  background: rgba(255, 193, 7, 0.1);
+  color: var(--warning);
+}
+
+.alert-modal.error .modal-icon {
+  background: rgba(235, 56, 82, 0.1);
+  color: var(--error);
+}
+
+/* ===========================
+   MODAL CONTENT
+   =========================== */
+
+.modal-content {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.modal-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--primary);
+  margin: 0 0 12px 0;
+}
+
+.modal-message {
+  font-size: 16px;
+  color: var(--gray-medium);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ===========================
+   MODAL ACTIONS
+   =========================== */
+
+.modal-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.modal-button {
+  width: 100%;
+  padding: 14px 24px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+}
+
+.modal-button.primary {
+  background: var(--primary);
+  color: var(--white);
+}
+
+.modal-button.primary:hover {
+  background: var(--primary-light);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(26, 42, 78, 0.2);
+}
+
+.modal-button.secondary {
+  background: var(--white);
+  color: var(--primary);
+  border: 2px solid var(--gray-light);
+}
+
+.modal-button.secondary:hover {
+  background: var(--off-white);
+  border-color: var(--primary);
+}
+
+/* ===========================
+   RESPONSIVE DESIGN
+   =========================== */
+
+@media (max-width: 480px) {
+  .alert-modal {
+    padding: 24px;
+  }
+
+  .modal-icon {
+    width: 70px;
+    height: 70px;
+  }
+
+  .modal-icon svg {
+    width: 40px;
+    height: 40px;
+  }
+
+  .modal-title {
+    font-size: 20px;
+  }
+
+  .modal-message {
+    font-size: 15px;
+  }
+
+  .modal-button {
+    padding: 12px 20px;
+    font-size: 15px;
+  }
+}
+
+/* ===========================
+   ACCESSIBILITY
+   =========================== */
+
+.modal-close-button:focus,
+.modal-button:focus {
+  outline: 2px solid var(--accent-sky);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .alert-modal-overlay,
+  .alert-modal {
+    animation: none;
+  }
+
+  .modal-button {
+    transition: none;
+  }
+}

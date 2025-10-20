@@ -1,0 +1,118 @@
+.app-button {
+  /* Base styles */
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: inherit;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  /* Using global colors */
+  background: var(--primary);
+  color: var(--white);
+  box-shadow: 0 2px 8px rgba(26, 42, 78, 0.15);
+}
+
+.app-button:hover {
+  background: var(--primary-light);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(26, 42, 78, 0.25);
+}
+
+.app-button:active {
+  background: var(--primary-dark);
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(26, 42, 78, 0.2);
+}
+
+.app-button:focus {
+  outline: 2px solid var(--accent-sky);
+  outline-offset: 2px;
+}
+
+.app-button:disabled {
+  background: var(--gray-light);
+  color: var(--gray-medium);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Button Variants */
+.app-button.secondary {
+  background: var(--white);
+  color: var(--primary);
+  border: 2px solid var(--primary);
+  box-shadow: none;
+}
+
+.app-button.secondary:hover {
+  background: var(--off-white);
+  border-color: var(--primary-light);
+}
+
+.app-button.secondary:active {
+  background: var(--gray-light);
+  border-color: var(--primary-dark);
+}
+
+.app-button.success {
+  background: var(--success);
+  color: var(--white);
+}
+
+.app-button.success:hover {
+  background: #05c190;
+}
+
+.app-button.success:active {
+  background: #05a67d;
+}
+
+.app-button.error {
+  background: var(--error);
+  color: var(--white);
+}
+
+.app-button.error:hover {
+  background: #e63b5f;
+}
+
+.app-button.error:active {
+  background: #d4325a;
+}
+
+.app-button.warning {
+  background: var(--warning);
+  color: var(--primary-dark);
+}
+
+.app-button.warning:hover {
+  background: #ffca4d;
+}
+
+.app-button.warning:active {
+  background: #ffc233;
+}
+
+/* Button Sizes */
+.app-button.small {
+  padding: 8px 16px;
+  font-size: 14px;
+}
+
+.app-button.large {
+  padding: 16px 32px;
+  font-size: 18px;
+}
+
+/* Full width button */
+.app-button.full-width {
+  width: 100%;
+}

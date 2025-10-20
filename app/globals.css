@@ -1,13 +1,36 @@
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+  /* Primary Colors - Navy Blue Theme */
+  --primary: #1a2a4e;
+  --primary-light: #2d4473;
+  --primary-dark: #0f1829;
+  --primary-muted: #3d5a80;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  /* Accent Colors */
+  --accent-coral: #ff6b6b;
+  --accent-gold: #ffd166;
+  --accent-teal: #06d6a0;
+  --accent-sky: #4ecdc4;
+
+  /* Neutral Colors */
+  --white: #ffffff;
+  --off-white: #f8f9fa;
+  --gray-light: #e9ecef;
+  --gray-medium: #6c757d;
+  --gray-dark: #343a40;
+  --almost-black: #212529;
+
+  /* Semantic Colors */
+  --success: #06d6a0;
+  --warning: #ffd166;
+  --error: #ef476f;
+  --info: #118ab2;
+
+  /* Common Usage Variables */
+  --background: #ffffff;
+  --foreground: #343a40;
+  --text-heading: #212529;
+  --text-secondary: #6c757d;
+  --border: #e9ecef;
 }
 
 html,
@@ -22,21 +45,4 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
 }

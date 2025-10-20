@@ -1,0 +1,149 @@
+/* ===========================
+   CART PAGE STYLES
+   =========================== */
+
+.cart-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--off-white);
+}
+
+.cart-main {
+  flex: 1;
+  padding: 40px 0;
+}
+
+.cart-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ===========================
+   CART HEADER
+   =========================== */
+
+.cart-header {
+  margin-bottom: 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cart-title {
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--primary);
+  margin: 0;
+}
+
+.cart-count {
+  font-size: 16px;
+  color: var(--gray-medium);
+  margin: 0;
+}
+
+/* ===========================
+   CART CONTENT
+   =========================== */
+
+.cart-content {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: 32px;
+  align-items: start;
+}
+
+.cart-items-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.cart-items-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ===========================
+   RESPONSIVE DESIGN
+   =========================== */
+
+@media (max-width: 1024px) {
+  .cart-content {
+    grid-template-columns: 1fr;
+  }
+
+  .cart-summary-section {
+    order: -1; /* Show summary first on mobile */
+  }
+}
+
+@media (max-width: 768px) {
+  .cart-container {
+    padding: 0 16px;
+  }
+
+  .cart-main {
+    padding: 24px 0;
+  }
+
+  .cart-header {
+    margin-bottom: 24px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .cart-title {
+    font-size: 28px;
+  }
+}
+
+@media (max-width: 480px) {
+  .cart-title {
+    font-size: 24px;
+  }
+
+  .cart-content {
+    gap: 24px;
+  }
+}
+
+/* ===========================
+   ANIMATIONS
+   =========================== */
+
+.cart-items-list > * {
+  animation: fadeInUp 0.3s ease-out backwards;
+}
+
+.cart-items-list > *:nth-child(1) {
+  animation-delay: 0.05s;
+}
+
+.cart-items-list > *:nth-child(2) {
+  animation-delay: 0.1s;
+}
+
+.cart-items-list > *:nth-child(3) {
+  animation-delay: 0.15s;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cart-items-list > * {
+    animation: none;
+  }
+}

@@ -1,0 +1,397 @@
+/* ===========================
+   REGISTER FORM STYLES
+   =========================== */
+
+.register-form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 24px;
+  background: linear-gradient(
+    135deg,
+    var(--off-white) 0%,
+    var(--gray-light) 100%
+  );
+}
+
+.register-form-card {
+  width: 100%;
+  max-width: 480px;
+  background: var(--white);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(26, 42, 78, 0.12);
+  padding: 40px;
+  animation: slideUp 0.4s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===========================
+   HEADER
+   =========================== */
+
+.register-form-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.register-form-title {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--primary);
+  margin: 0 0 8px 0;
+}
+
+.register-form-subtitle {
+  font-size: 16px;
+  color: var(--gray-medium);
+  margin: 0;
+}
+
+/* ===========================
+   ALERT MESSAGES
+   =========================== */
+
+.alert {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: 8px;
+  margin-bottom: 24px;
+  font-size: 14px;
+  font-weight: 500;
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.alert svg {
+  flex-shrink: 0;
+}
+
+.alert-success {
+  background: rgba(6, 214, 160, 0.1);
+  color: var(--success);
+  border: 1px solid rgba(6, 214, 160, 0.3);
+}
+
+.alert-error {
+  background: rgba(235, 56, 82, 0.1);
+  color: var(--error);
+  border: 1px solid rgba(235, 56, 82, 0.3);
+}
+
+/* ===========================
+   FORM
+   =========================== */
+
+.register-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ===========================
+   PASSWORD STRENGTH
+   =========================== */
+
+.password-field-wrapper {
+  position: relative;
+}
+
+.password-strength {
+  margin-top: 8px;
+  padding: 0 16px;
+}
+
+.password-strength-bars {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+
+.strength-bar {
+  height: 4px;
+  flex: 1;
+  background: var(--gray-light);
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+.strength-bar.active {
+  transform: scaleY(1.2);
+}
+
+.password-strength-label {
+  font-size: 12px;
+  font-weight: 600;
+  display: block;
+  transition: color 0.3s ease;
+}
+
+/* ===========================
+   CHECKBOX FIELD
+   =========================== */
+
+.checkbox-field {
+  margin: 8px 0;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  cursor: pointer;
+  position: relative;
+  user-select: none;
+}
+
+.checkbox-input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  width: 0;
+  height: 0;
+}
+
+.checkbox-custom {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  border: 2px solid var(--gray-medium);
+  border-radius: 4px;
+  background: var(--white);
+  transition: all 0.2s ease;
+  margin-top: 2px;
+}
+
+.checkbox-input:checked ~ .checkbox-custom {
+  background: var(--primary);
+  border-color: var(--primary);
+}
+
+.checkbox-input:checked ~ .checkbox-custom::after {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 2px;
+  width: 5px;
+  height: 9px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.checkbox-input:focus ~ .checkbox-custom {
+  outline: 2px solid var(--accent-sky);
+  outline-offset: 2px;
+}
+
+.checkbox-input:disabled ~ .checkbox-custom {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.checkbox-text {
+  font-size: 14px;
+  color: var(--text-primary);
+  line-height: 1.5;
+}
+
+.checkbox-error {
+  display: block;
+  color: var(--error);
+  font-size: 13px;
+  margin-top: 6px;
+  padding-left: 32px;
+  font-weight: 500;
+}
+
+/* ===========================
+   LINKS
+   =========================== */
+
+.link {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.link:hover {
+  color: var(--primary-light);
+  text-decoration: underline;
+}
+
+.link:focus {
+  outline: 2px solid var(--accent-sky);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* ===========================
+   SUBMIT BUTTON
+   =========================== */
+
+.submit-button {
+  margin-top: 8px;
+}
+
+.loading-spinner {
+  animation: spin 1s linear infinite;
+}
+
+.loading-spinner .spinner-circle {
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-dasharray: 50;
+  stroke-dashoffset: 25;
+  animation: dash 1.5s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes dash {
+  0% {
+    stroke-dashoffset: 50;
+  }
+  50% {
+    stroke-dashoffset: 10;
+  }
+  100% {
+    stroke-dashoffset: 50;
+  }
+}
+
+/* ===========================
+   FOOTER
+   =========================== */
+
+.form-footer {
+  margin-top: 24px;
+  text-align: center;
+  padding-top: 24px;
+  border-top: 1px solid var(--gray-light);
+}
+
+.footer-text {
+  font-size: 14px;
+  color: var(--gray-medium);
+  margin: 0;
+}
+
+.link-button {
+  background: none;
+  border: none;
+  color: var(--primary);
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+  font-size: 14px;
+  transition: color 0.2s ease;
+}
+
+.link-button:hover:not(:disabled) {
+  color: var(--primary-light);
+  text-decoration: underline;
+}
+
+.link-button:focus {
+  outline: 2px solid var(--accent-sky);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+.link-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ===========================
+   RESPONSIVE DESIGN
+   =========================== */
+
+@media (max-width: 640px) {
+  .register-form-container {
+    padding: 16px;
+  }
+
+  .register-form-card {
+    padding: 32px 24px;
+  }
+
+  .register-form-title {
+    font-size: 28px;
+  }
+
+  .register-form-subtitle {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .register-form-card {
+    padding: 24px 20px;
+  }
+
+  .register-form-title {
+    font-size: 24px;
+  }
+
+  .checkbox-text {
+    font-size: 13px;
+  }
+}
+
+/* ===========================
+   ACCESSIBILITY
+   =========================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .register-form-card,
+  .alert,
+  .strength-bar,
+  .loading-spinner {
+    animation: none;
+  }
+
+  * {
+    transition: none !important;
+  }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .register-form-card {
+    border: 2px solid var(--primary);
+  }
+
+  .checkbox-custom {
+    border-width: 3px;
+  }
+}
