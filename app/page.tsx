@@ -8,6 +8,7 @@ import { AlertModal } from '@/components/ui';
 import { useProductStore, type Product } from '@/store/productStore';
 import { useUserStore } from '@/store/userStore';
 import './home.css';
+import { useCartStore } from '@/store/cartStore';
 
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -17,6 +18,7 @@ export default function Home() {
   // Get product store and user store
   const { products, loading, error, fetchProducts } = useProductStore();
   const { isAuthenticated } = useUserStore();
+  const { addItem } = useCartStore();
 
   // Fetch products on mount
   useEffect(() => {
@@ -53,11 +55,7 @@ export default function Home() {
     }
 
     // Add to cart logic (you'll implement with state management later)
-    // eslint-disable-next-line no-console
-    console.log('Added to cart:', product);
-
-    // TODO: Add to cart state
-    // addToCart(product);
+    addItem(product, 1);
   };
 
   return (

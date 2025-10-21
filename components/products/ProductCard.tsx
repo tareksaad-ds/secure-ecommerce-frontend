@@ -1,20 +1,11 @@
 'use client';
 
 import React from 'react';
-import { FiShoppingCart, FiHeart } from 'react-icons/fi';
+import { useRouter } from 'next/navigation';
+import { FiShoppingCart } from 'react-icons/fi';
+import { useCartStore } from '@/store/cartStore';
+import type { Product } from '@/store/productStore';
 import './ProductCard.css';
-
-export interface Product {
-  id: number;
-  name: string;
-  description?: string;
-  price: number;
-  originalPrice: number;
-  imageUrl?: string;
-  category?: string;
-  discount?: number;
-  createdAt: Date;
-}
 
 interface ProductCardProps {
   product: Product;
@@ -23,14 +14,35 @@ interface ProductCardProps {
 }
 
 function ProductCard({ product, onAddToCart }: ProductCardProps) {
+  const router = useRouter();
   const [isAdding, setIsAdding] = React.useState(false);
+  const [showSuccess, setShowSuccess] = React.useState(false);
+  const { addItem } = useCartStore();
 
-  const handleAddToCart = async () => {
+  const handleAddToCart = async (e: React.MouseEvent) => {
+    e.stopPropagation(); // Prevent card click when clicking add to cart
     setIsAdding(true);
-    if (onAddToCart) {
-      await onAddToCart(product);
+
+    try {
+      // Use custom callback if provided, otherwise use cart store
+      if (onAddToCart) {
+        await onAddToCart(product);
+      } else {
+        addItem(product, 1);
+      }
+
+      // Show success feedback
+      setShowSuccess(true);
+      setTimeout(() => setShowSuccess(false), 2000);
+    } catch (error) {
+      console.error('Failed to add item to cart:', error);
+    } finally {
+      setTimeout(() => setIsAdding(false), 500);
     }
-    setTimeout(() => setIsAdding(false), 500);
+  };
+
+  const handleCardClick = () => {
+    router.push(`/products/${product.id}`);
   };
 
   const discountPercentage = product.originalPrice
@@ -40,7 +52,7 @@ function ProductCard({ product, onAddToCart }: ProductCardProps) {
     : product.discount || 0;
 
   return (
-    <div className="product-card">
+    <div className="product-card" onClick={handleCardClick}>
       {/* Image Container */}
       <div className="product-image-container">
         <img
@@ -60,11 +72,12 @@ function ProductCard({ product, onAddToCart }: ProductCardProps) {
         <div className="product-overlay">
           <button
             className="quick-view-button"
-            onClick={() => {
-              /* TODO: Implement quick view functionality */
+            onClick={(e) => {
+              e.stopPropagation();
+              router.push(`/products/${product.id}`);
             }}
           >
-            Quick View
+            View Details
           </button>
         </div>
       </div>
@@ -92,7 +105,7 @@ function ProductCard({ product, onAddToCart }: ProductCardProps) {
           </div>
 
           <button
-            className={`add-to-cart-button ${isAdding ? 'adding' : ''}`}
+            className={`add-to-cart-button ${isAdding ? 'adding' : ''} ${showSuccess ? 'success' : ''}`}
             onClick={handleAddToCart}
             disabled={isAdding}
           >
@@ -100,6 +113,11 @@ function ProductCard({ product, onAddToCart }: ProductCardProps) {
               <>
                 <span className="button-spinner" />
                 Adding...
+              </>
+            ) : showSuccess ? (
+              <>
+                <span>✓</span>
+                Added!
               </>
             ) : (
               <>

@@ -83,28 +83,47 @@ export const useUserStore = create<UserState>((set) => ({
   },
   validateAuth: async () => {
     const token = localStorage.getItem('token');
-    const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/users/me`,
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    if (response.status === 200) {
-      set({
-        isAuthenticated: true,
-        userInfo: response.data,
-      });
-      return true;
-    } else if (response.status === 401) {
+    
+    // If no token exists, set as unauthenticated
+    if (!token) {
       set({
         isAuthenticated: false,
         userInfo: null,
       });
       return false;
-    } else {
+    }
+
+    try {
+      const response = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}/users/me`,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      
+      if (response.status === 200) {
+        set({
+          isAuthenticated: true,
+          userInfo: response.data,
+        });
+        return true;
+      }
+      
+      return false;
+    } catch (err: unknown) {
+      // Handle 401 or any other error by clearing invalid token
+      if (axios.isAxiosError(err) && err.response?.status === 401) {
+        // Token is invalid or expired, clear it
+        localStorage.removeItem('token');
+      }
+      
+      set({
+        isAuthenticated: false,
+        userInfo: null,
+      });
       return false;
     }
   },
