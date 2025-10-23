@@ -1,0 +1,275 @@
+/* ===========================
+   SITE HEADER STYLES
+   =========================== */
+
+.site-header {
+  background: var(--white);
+  border-bottom: 1px solid var(--gray-light);
+  padding: 20px 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(26, 42, 78, 0.06);
+}
+
+.header-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+/* ===========================
+   LOGO & BRAND
+   =========================== */
+
+.header-left {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+}
+.brand-content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.logo-button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  text-align: left;
+}
+
+.site-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--primary);
+  margin: 0;
+  transition: color 0.2s ease;
+}
+
+.logo-button:hover .site-title {
+  color: var(--primary-light);
+}
+
+.site-tagline {
+  font-size: 14px;
+  color: var(--gray-medium);
+  margin: 0;
+}
+
+/* ===========================
+   HEADER RIGHT (Actions)
+   =========================== */
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* ===========================
+   AUTH BUTTONS
+   =========================== */
+
+.auth-buttons {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.auth-button {
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.login-button {
+  background: var(--off-white);
+  color: var(--primary);
+  border: 2px solid var(--gray-light);
+}
+
+.login-button:hover {
+  background: var(--white);
+  border-color: var(--primary);
+  transform: translateY(-2px);
+}
+
+.signup-button {
+  background: var(--primary);
+  color: var(--white);
+  border: 2px solid var(--primary);
+}
+
+.signup-button:hover {
+  background: var(--primary-light);
+  border-color: var(--primary-light);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(26, 42, 78, 0.2);
+}
+
+.auth-button:focus {
+  outline: 2px solid var(--accent-sky);
+  outline-offset: 2px;
+}
+.username_header {
+  font-size: medium;
+  color: var(--primary);
+}
+.link-button {
+  background: none;
+  border: none;
+  color: var(--primary);
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+  font-size: 14px;
+  transition: color 0.2s ease;
+}
+
+.link-button:hover:not(:disabled) {
+  color: var(--primary-light);
+  text-decoration: underline;
+}
+
+.link-button:focus {
+  outline: 2px solid var(--accent-sky);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+.link-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ===========================
+   CART BUTTON
+   =========================== */
+
+.cart-button,
+.logout_button {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+  background: var(--off-white);
+  color: var(--primary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.cart-button:hover,
+.logout_button:hover {
+  background: var(--primary);
+  color: var(--white);
+  transform: scale(1.05);
+}
+
+.cart-button:focus,
+.logout_button:focus {
+  outline: 2px solid var(--accent-sky);
+  outline-offset: 2px;
+}
+
+.cart-badge {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  background: var(--error);
+  color: var(--white);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 10px;
+  min-width: 18px;
+  text-align: center;
+}
+
+/* ===========================
+   RESPONSIVE DESIGN
+   =========================== */
+
+@media (max-width: 768px) {
+  .header-container {
+    padding: 0 16px;
+  }
+
+  .site-title {
+    font-size: 24px;
+  }
+
+  .site-tagline {
+    font-size: 12px;
+  }
+
+  .auth-buttons {
+    gap: 8px;
+  }
+
+  .auth-button {
+    padding: 8px 14px;
+    font-size: 13px;
+  }
+
+  .login-button span {
+    display: none;
+  }
+
+  .login-button {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    justify-content: center;
+    border-radius: 50%;
+  }
+
+  .cart-button {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  .site-tagline {
+    display: none;
+  }
+
+  .auth-button {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+
+  .signup-button {
+    padding: 8px 14px;
+  }
+}
+
+/* ===========================
+   ACCESSIBILITY
+   =========================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .auth-button,
+  .cart-button,
+  .site-title {
+    transition: none;
+  }
+}

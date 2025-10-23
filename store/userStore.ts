@@ -1,0 +1,182 @@
+import axios from 'axios';
+import { create } from 'zustand';
+import { useCartStore } from './cartStore';
+
+type UserInfo = {
+  id: number;
+  name: string;
+  email: string;
+  avatarUrl?: string;
+  role?: 'admin' | 'customer' | 'guest';
+};
+
+type UserState = {
+  isAuthenticated: boolean;
+  userInfo: UserInfo | null;
+  loading: boolean;
+  error: string | null;
+  login: (email: string, password: string) => Promise<UserInfo>;
+  logout: () => void;
+  setUserInfo: (user: UserInfo) => void;
+  validateAuth?: () => Promise<boolean>;
+  createUser: (
+    name: string,
+    email: string,
+    password: string
+  ) => Promise<UserInfo>;
+};
+
+export const useUserStore = create<UserState>((set) => ({
+  isAuthenticated: false,
+  userInfo: null,
+  loading: false,
+  error: null,
+
+  login: async (email, password) => {
+    set({ loading: true, error: null });
+    try {
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/auth/login`,
+        { email, password },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+      const user: UserInfo = response.data.user;
+      const accessToken: string | undefined = response.data.access_token;
+
+      set({ isAuthenticated: true, userInfo: user, loading: false });
+      if (accessToken) {
+        localStorage.setItem('token', accessToken);
+      }
+      return user;
+    } catch (err: unknown) {
+      let errorMessage = 'An unknown error occurred';
+      if (axios.isAxiosError(err)) {
+        errorMessage =
+          err.response?.data?.message ||
+          err.response?.data?.error ||
+          err.message ||
+          'Login failed. Please try again.';
+      } else if (err instanceof Error) {
+        errorMessage = err.message;
+      }
+
+      set({
+        error: errorMessage,
+        loading: false,
+        isAuthenticated: false,
+        userInfo: null,
+      });
+      throw new Error(errorMessage);
+    }
+  },
+
+  logout: () => {
+    // Clear cart items when logging out
+    try {
+      useCartStore.getState().clearCart();
+    } catch {
+      // ignore if cart store not initialized yet
+    }
+
+    set({
+      isAuthenticated: false,
+      userInfo: null,
+      error: null,
+    });
+    localStorage.removeItem('token');
+  },
+  validateAuth: async () => {
+    const token = localStorage.getItem('token');
+
+    // If no token exists, set as unauthenticated
+    if (!token) {
+      set({
+        isAuthenticated: false,
+        userInfo: null,
+      });
+      return false;
+    }
+
+    try {
+      const response = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}/users/me`,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        set({
+          isAuthenticated: true,
+          userInfo: response.data,
+        });
+        return true;
+      }
+
+      return false;
+    } catch (err: unknown) {
+      // Handle 401 or any other error by clearing invalid token
+      if (axios.isAxiosError(err) && err.response?.status === 401) {
+        // Token is invalid or expired, clear it
+        localStorage.removeItem('token');
+      }
+
+      set({
+        isAuthenticated: false,
+        userInfo: null,
+      });
+      return false;
+    }
+  },
+  createUser: async (name, email, password) => {
+    set({ loading: true, error: null });
+    try {
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/auth/register`,
+        {
+          name,
+          email,
+          password,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+      const user: UserInfo = response.data.user;
+      const accessToken: string | undefined = response.data.access_token;
+      set({ isAuthenticated: true, userInfo: user, loading: false });
+      if (accessToken) {
+        localStorage.setItem('token', accessToken);
+      }
+      return user;
+    } catch (err: unknown) {
+      let errorMessage = 'An unknown error occurred';
+      if (axios.isAxiosError(err)) {
+        errorMessage =
+          err.response?.data?.message ||
+          err.response?.data?.error ||
+          err.message ||
+          'Registration failed. Please try again.';
+      } else if (err instanceof Error) {
+        errorMessage = err.message;
+      }
+      set({
+        error: errorMessage,
+        loading: false,
+        isAuthenticated: false,
+        userInfo: null,
+      });
+      throw new Error(errorMessage);
+    }
+  },
+  setUserInfo: (user: UserInfo) => set({ userInfo: user }),
+}));

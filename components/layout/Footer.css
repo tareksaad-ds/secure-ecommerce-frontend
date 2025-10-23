@@ -1,0 +1,215 @@
+/* ===========================
+   SIMPLE FOOTER STYLES
+   =========================== */
+
+.site-footer {
+  background: var(--white);
+  border-top: 1px solid var(--gray-light);
+  margin-top: auto;
+  padding: 32px 0 24px;
+}
+
+.footer-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+/* ===========================
+   MAIN FOOTER CONTENT
+   =========================== */
+
+.footer-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  text-align: center;
+}
+
+.footer-brand-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+}
+
+.footer-brand {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--primary);
+  margin: 0;
+}
+
+.footer-tagline {
+  font-size: 14px;
+  color: var(--gray-medium);
+  margin: 0;
+  max-width: 400px;
+}
+
+/* ===========================
+   SOCIAL LINKS
+   =========================== */
+
+.footer-social {
+  display: flex;
+  gap: 12px;
+}
+
+.social-link {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--off-white);
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.social-link:hover {
+  background: var(--primary);
+  color: var(--white);
+  transform: translateY(-2px);
+}
+
+.social-link:focus {
+  outline: 2px solid var(--accent-sky);
+  outline-offset: 2px;
+}
+
+/* ===========================
+   FOOTER LINKS
+   =========================== */
+
+.footer-links {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.footer-link {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 14px;
+  color: var(--gray-medium);
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.footer-link:hover {
+  color: var(--primary);
+}
+
+.footer-link:focus {
+  outline: 2px solid var(--accent-sky);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+.separator {
+  color: var(--gray-light);
+  user-select: none;
+}
+
+/* ===========================
+   COPYRIGHT
+   =========================== */
+
+.footer-copyright {
+  padding-top: 16px;
+  border-top: 1px solid var(--gray-light);
+  width: 100%;
+  text-align: center;
+}
+
+.footer-copyright p {
+  font-size: 14px;
+  color: var(--gray-medium);
+  margin: 0;
+}
+
+/* ===========================
+   RESPONSIVE DESIGN
+   =========================== */
+
+@media (max-width: 640px) {
+  .footer-container {
+    padding: 0 16px;
+  }
+
+  .footer-brand {
+    font-size: 20px;
+  }
+
+  .footer-tagline {
+    font-size: 13px;
+  }
+
+  .footer-links {
+    gap: 8px;
+  }
+
+  .footer-link {
+    font-size: 13px;
+  }
+
+  .social-link {
+    width: 36px;
+    height: 36px;
+  }
+
+  .footer-copyright p {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .site-footer {
+    padding: 24px 0 20px;
+  }
+
+  .footer-container {
+    gap: 20px;
+  }
+
+  .footer-main {
+    gap: 12px;
+  }
+
+  .footer-social {
+    gap: 10px;
+  }
+}
+
+/* ===========================
+   ACCESSIBILITY
+   =========================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .social-link,
+  .footer-link {
+    transition: none;
+  }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .site-footer {
+    border-top-width: 2px;
+  }
+
+  .footer-copyright {
+    border-top-width: 2px;
+  }
+}

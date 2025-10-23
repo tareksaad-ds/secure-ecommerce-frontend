@@ -1,0 +1,448 @@
+/* ===========================
+   APP INPUT COMPONENT STYLES
+   =========================== */
+
+/* Wrapper */
+.app-input-wrapper {
+  position: relative;
+  display: inline-block;
+  font-family: inherit;
+  margin-bottom: 8px;
+}
+
+.app-input-wrapper.full-width {
+  width: 100%;
+  display: block;
+}
+
+/* Input Container */
+.app-input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* Base Input Styles */
+.app-input {
+  width: 100%;
+  padding: 14px 16px;
+  font-size: 16px;
+  font-family: inherit;
+  color: var(--text-primary);
+  background: var(--white);
+  border: 2px solid var(--gray-light);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  outline: none;
+  box-sizing: border-box;
+}
+
+/* Outlined Variant (Default) */
+.app-input-wrapper.outlined .app-input {
+  background: var(--white);
+  border: 2px solid var(--gray-light);
+}
+
+/* Filled Variant */
+.app-input-wrapper.filled .app-input {
+  background: var(--off-white);
+  border: 2px solid transparent;
+  border-bottom: 2px solid var(--gray-medium);
+  border-radius: 8px 8px 0 0;
+}
+
+/* Standard Variant */
+.app-input-wrapper.standard .app-input {
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid var(--gray-medium);
+  border-radius: 0;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/* ===========================
+   FLOATING LABEL
+   =========================== */
+
+.app-input-label {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 16px;
+  color: var(--gray-medium);
+  background: var(--white);
+  padding: 0 4px;
+  pointer-events: none;
+  transition: all 0.3s ease;
+  transform-origin: left center;
+}
+
+.app-input-wrapper.standard .app-input-label {
+  left: 0;
+  background: transparent;
+}
+
+.app-input-wrapper.filled .app-input-label {
+  background: transparent;
+}
+
+/* Label animation on focus/has-value */
+.app-input-wrapper.focused .app-input-label,
+.app-input-wrapper.has-value .app-input-label {
+  top: 0;
+  transform: translateY(-50%) scale(0.85);
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.app-input-wrapper.filled.focused .app-input-label,
+.app-input-wrapper.filled.has-value .app-input-label {
+  top: 8px;
+  transform: scale(0.85);
+}
+
+.app-input-wrapper.standard.focused .app-input-label,
+.app-input-wrapper.standard.has-value .app-input-label {
+  top: 0;
+  transform: translateY(-150%) scale(0.85);
+}
+
+/* ===========================
+   FOCUS & HOVER STATES
+   =========================== */
+
+.app-input:hover:not(:disabled) {
+  border-color: var(--primary);
+}
+
+.app-input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(26, 42, 78, 0.1);
+}
+
+.app-input-wrapper.filled .app-input:focus {
+  border-bottom-color: var(--primary);
+  background: var(--white);
+}
+
+.app-input-wrapper.standard .app-input:focus {
+  border-bottom-color: var(--primary);
+  box-shadow: none;
+}
+
+/* ===========================
+   STATES
+   =========================== */
+
+/* Error State */
+.app-input-wrapper.error .app-input {
+  border-color: var(--error);
+  background: rgba(235, 56, 82, 0.05);
+}
+
+.app-input-wrapper.error .app-input:focus {
+  border-color: var(--error);
+  box-shadow: 0 0 0 3px rgba(235, 56, 82, 0.1);
+}
+
+.app-input-wrapper.error .app-input-label {
+  color: var(--error);
+}
+
+/* Success State */
+.app-input-wrapper.success .app-input {
+  border-color: var(--success);
+  background: rgba(6, 214, 160, 0.05);
+}
+
+.app-input-wrapper.success .app-input:focus {
+  border-color: var(--success);
+  box-shadow: 0 0 0 3px rgba(6, 214, 160, 0.1);
+}
+
+.app-input-wrapper.success .app-input-label {
+  color: var(--success);
+}
+
+/* Disabled State */
+.app-input:disabled {
+  background: var(--gray-light);
+  color: var(--gray-medium);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.app-input-wrapper.disabled .app-input-label {
+  color: var(--gray-medium);
+}
+
+/* ===========================
+   SIZES
+   =========================== */
+
+/* Small Size */
+.app-input-wrapper.small .app-input {
+  padding: 10px 12px;
+  font-size: 14px;
+}
+
+.app-input-wrapper.small .app-input-label {
+  font-size: 14px;
+  left: 12px;
+}
+
+.app-input-wrapper.small.standard .app-input-label {
+  left: 0;
+}
+
+/* Large Size */
+.app-input-wrapper.large .app-input {
+  padding: 18px 20px;
+  font-size: 18px;
+}
+
+.app-input-wrapper.large .app-input-label {
+  font-size: 18px;
+  left: 20px;
+}
+
+.app-input-wrapper.large.standard .app-input-label {
+  left: 0;
+}
+
+/* ===========================
+   ICONS
+   =========================== */
+
+.app-input-icon {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gray-medium);
+  pointer-events: none;
+  transition: color 0.3s ease;
+}
+
+.app-input-icon.left-icon {
+  left: 14px;
+}
+
+.app-input-icon.right-icon {
+  right: 14px;
+}
+
+.app-input-wrapper.icon-left .app-input {
+  padding-left: 48px;
+}
+
+.app-input-wrapper.icon-left .app-input-label {
+  left: 48px;
+}
+
+.app-input-wrapper.icon-right .app-input {
+  padding-right: 48px;
+}
+
+.app-input-wrapper.focused .app-input-icon {
+  color: var(--primary);
+}
+
+.app-input-wrapper.error .app-input-icon {
+  color: var(--error);
+}
+
+.app-input-wrapper.success .app-input-icon {
+  color: var(--success);
+}
+
+/* Icon adjustments for small and large sizes */
+.app-input-wrapper.small .app-input-icon.left-icon {
+  left: 12px;
+}
+
+.app-input-wrapper.small.icon-left .app-input {
+  padding-left: 40px;
+}
+
+.app-input-wrapper.small.icon-left .app-input-label {
+  left: 40px;
+}
+
+.app-input-wrapper.large .app-input-icon.left-icon {
+  left: 18px;
+}
+
+.app-input-wrapper.large.icon-left .app-input {
+  padding-left: 54px;
+}
+
+.app-input-wrapper.large.icon-left .app-input-label {
+  left: 54px;
+}
+
+/* ===========================
+   PASSWORD TOGGLE
+   =========================== */
+
+.app-input-password-toggle {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--gray-medium);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.app-input-password-toggle:hover {
+  color: var(--primary);
+  background: var(--off-white);
+}
+
+.app-input-password-toggle:focus {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+.app-input-wrapper .app-input-password-toggle ~ .app-input {
+  padding-right: 48px;
+}
+
+/* ===========================
+   LOADING SPINNER
+   =========================== */
+
+.app-input-loading {
+  position: absolute;
+  right: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.spinner {
+  width: 20px;
+  height: 20px;
+  animation: spin 1s linear infinite;
+}
+
+.spinner-circle {
+  stroke: var(--primary);
+  stroke-linecap: round;
+  stroke-dasharray: 50;
+  stroke-dashoffset: 25;
+  animation: dash 1.5s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes dash {
+  0% {
+    stroke-dashoffset: 50;
+  }
+  50% {
+    stroke-dashoffset: 10;
+  }
+  100% {
+    stroke-dashoffset: 50;
+  }
+}
+
+/* ===========================
+   MESSAGES (Error & Helper)
+   =========================== */
+
+.app-input-message {
+  display: block;
+  font-size: 13px;
+  margin-top: 6px;
+  padding-left: 16px;
+}
+
+.app-input-wrapper.standard .app-input-message {
+  padding-left: 0;
+}
+
+.error-message {
+  color: var(--error);
+  font-weight: 500;
+}
+
+.helper-text {
+  color: var(--gray-medium);
+}
+
+/* ===========================
+   AUTOCOMPLETE STYLES
+   =========================== */
+
+.app-input:-webkit-autofill,
+.app-input:-webkit-autofill:hover,
+.app-input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 1000px var(--white) inset;
+  -webkit-text-fill-color: var(--text-primary);
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+/* ===========================
+   ACCESSIBILITY
+   =========================== */
+
+.app-input:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+  .app-input {
+    border-width: 3px;
+  }
+
+  .app-input:focus {
+    outline: 3px solid;
+  }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  .app-input,
+  .app-input-label,
+  .app-input-icon,
+  .app-input-password-toggle,
+  .spinner {
+    animation: none;
+    transition: none;
+  }
+}
+
+/* ===========================
+   PLACEHOLDER
+   =========================== */
+
+.app-input::placeholder {
+  color: var(--gray-medium);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.app-input:focus::placeholder {
+  opacity: 1;
+}
+
+/* Show placeholder when there's no label */
+.app-input-wrapper:not(:has(.app-input-label)) .app-input::placeholder {
+  opacity: 0.6;
+}

@@ -1,0 +1,101 @@
+/* ===========================
+   EMPTY CART STYLES
+   =========================== */
+
+.empty-cart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 80px 24px;
+  min-height: 400px;
+}
+
+.empty-cart-icon {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: var(--off-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gray-medium);
+  margin-bottom: 24px;
+}
+
+.empty-cart-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--primary);
+  margin: 0 0 12px 0;
+}
+
+.empty-cart-message {
+  font-size: 16px;
+  color: var(--gray-medium);
+  max-width: 400px;
+  margin: 0 0 32px 0;
+  line-height: 1.6;
+}
+
+.shop-now-button {
+  padding: 14px 32px;
+  background: var(--primary);
+  color: var(--white);
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.shop-now-button:hover {
+  background: var(--primary-light);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(26, 42, 78, 0.2);
+}
+
+/* ===========================
+   RESPONSIVE DESIGN
+   =========================== */
+
+@media (max-width: 640px) {
+  .empty-cart {
+    padding: 60px 20px;
+  }
+
+  .empty-cart-icon {
+    width: 120px;
+    height: 120px;
+  }
+
+  .empty-cart-icon svg {
+    width: 60px;
+    height: 60px;
+  }
+
+  .empty-cart-title {
+    font-size: 24px;
+  }
+
+  .empty-cart-message {
+    font-size: 15px;
+  }
+}
+
+/* ===========================
+   ACCESSIBILITY
+   =========================== */
+
+.shop-now-button:focus {
+  outline: 2px solid var(--accent-sky);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shop-now-button {
+    transition: none;
+  }
+}
