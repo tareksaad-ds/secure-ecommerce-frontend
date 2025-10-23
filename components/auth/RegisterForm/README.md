@@ -43,26 +43,33 @@ function Page() {
 ## 🔧 Component Details
 
 ### RegisterForm.tsx
+
 Main form component that orchestrates all sub-components.
 
 ### registerSchema.ts
+
 Contains the Zod validation schema and TypeScript types.
 
 ### PasswordStrength.tsx
+
 Displays a visual password strength indicator (5 levels).
 
 ### Alert.tsx
+
 Reusable alert component for success/error messages.
 
 ### TermsCheckbox.tsx
+
 Custom checkbox for terms and conditions acceptance.
 
 ### LoadingSpinner.tsx
+
 SVG-based loading spinner animation.
 
 ## 🎨 Icons Used
 
 Using `react-icons/fi` (Feather Icons):
+
 - `FiUser` - Full name field
 - `FiMail` - Email field
 - `FiLock` - Password fields
@@ -87,4 +94,3 @@ Using `react-icons/fi` (Feather Icons):
 - ✅ Fully accessible (ARIA labels)
 - ✅ Responsive design
 - ✅ TypeScript support
-

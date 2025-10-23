@@ -4,6 +4,7 @@ import React from 'react';
 import { useRouter } from 'next/navigation';
 import { FiShoppingCart } from 'react-icons/fi';
 import { useCartStore } from '@/store/cartStore';
+import { useUserStore } from '@/store/userStore';
 import type { Product } from '@/store/productStore';
 import './ProductCard.css';
 
@@ -18,6 +19,7 @@ function ProductCard({ product, onAddToCart }: ProductCardProps) {
   const [isAdding, setIsAdding] = React.useState(false);
   const [showSuccess, setShowSuccess] = React.useState(false);
   const { addItem } = useCartStore();
+  const { isAuthenticated } = useUserStore();
 
   const handleAddToCart = async (e: React.MouseEvent) => {
     e.stopPropagation(); // Prevent card click when clicking add to cart
@@ -28,6 +30,11 @@ function ProductCard({ product, onAddToCart }: ProductCardProps) {
       if (onAddToCart) {
         await onAddToCart(product);
       } else {
+        // Enforce auth when using default add
+        if (!isAuthenticated) {
+          router.push('/auth');
+          return;
+        }
         addItem(product, 1);
       }
 

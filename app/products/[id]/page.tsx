@@ -10,6 +10,7 @@ import {
 } from 'react-icons/fi';
 import { useProductStore } from '@/store/productStore';
 import { useCartStore } from '@/store/cartStore';
+import { useUserStore } from '@/store/userStore';
 import './productDetails.css';
 
 export default function ProductDetailsPage() {
@@ -20,6 +21,7 @@ export default function ProductDetailsPage() {
   const { selectedProduct, loading, error, fetchProductById } =
     useProductStore();
   const { addItem, isInCart } = useCartStore();
+  const { isAuthenticated } = useUserStore();
 
   const [quantity, setQuantity] = useState(1);
   const [isAddingToCart, setIsAddingToCart] = useState(false);
@@ -52,6 +54,12 @@ export default function ProductDetailsPage() {
   // Handle add to cart
   const handleAddToCart = async () => {
     if (!selectedProduct) return;
+
+    // Require authentication
+    if (!isAuthenticated) {
+      router.push('/auth');
+      return;
+    }
 
     setIsAddingToCart(true);
     try {

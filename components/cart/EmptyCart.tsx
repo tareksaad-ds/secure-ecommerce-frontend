@@ -15,8 +15,8 @@ function EmptyCart() {
       </div>
       <h2 className="empty-cart-title">Your Cart is Empty</h2>
       <p className="empty-cart-message">
-        Looks like you haven't added anything to your cart yet. Start shopping
-        to fill it up!
+        Looks like you haven&apos;t added anything to your cart yet. Start
+        shopping to fill it up!
       </p>
       <button className="shop-now-button" onClick={() => router.push('/')}>
         Start Shopping

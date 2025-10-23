@@ -12,7 +12,7 @@ The Cart Store is a comprehensive state management solution for handling shoppin
 ✅ **LocalStorage Persistence** - Cart persists across browser sessions  
 ✅ **Server Sync** - Automatic synchronization for authenticated users  
 ✅ **Cart Merging** - Merge guest cart with user cart after login  
-✅ **Error Handling** - Comprehensive error handling and recovery  
+✅ **Error Handling** - Comprehensive error handling and recovery
 
 ---
 
@@ -44,7 +44,7 @@ import { useCartStore } from '@/store/cartStore';
 
 function MyComponent() {
   const { items, addItem, removeItem, getTotals } = useCartStore();
-  
+
   return (
     <div>
       <p>Items in cart: {items.length}</p>
@@ -59,18 +59,19 @@ function MyComponent() {
 
 ### State Properties
 
-| Property | Type | Description |
-|----------|------|-------------|
-| `items` | `CartItem[]` | Array of cart items |
-| `loading` | `boolean` | Loading state for async operations |
-| `error` | `string \| null` | Error message if any |
-| `lastSynced` | `Date \| null` | Last server sync timestamp |
+| Property     | Type             | Description                        |
+| ------------ | ---------------- | ---------------------------------- |
+| `items`      | `CartItem[]`     | Array of cart items                |
+| `loading`    | `boolean`        | Loading state for async operations |
+| `error`      | `string \| null` | Error message if any               |
+| `lastSynced` | `Date \| null`   | Last server sync timestamp         |
 
 ### Actions
 
 #### Cart Operations
 
 ##### `addItem(product: Product, quantity?: number)`
+
 Add a product to the cart. If the item already exists, it increases the quantity.
 
 ```typescript
@@ -84,6 +85,7 @@ addItem(product, 3);
 ```
 
 ##### `removeItem(productId: number)`
+
 Remove an item from the cart completely.
 
 ```typescript
@@ -93,6 +95,7 @@ removeItem(productId);
 ```
 
 ##### `updateQuantity(productId: number, quantity: number)`
+
 Update the quantity of an item. If quantity is 0 or less, the item is removed.
 
 ```typescript
@@ -102,6 +105,7 @@ updateQuantity(productId, 5);
 ```
 
 ##### `increaseQuantity(productId: number)`
+
 Increase item quantity by 1.
 
 ```typescript
@@ -111,6 +115,7 @@ increaseQuantity(productId);
 ```
 
 ##### `decreaseQuantity(productId: number)`
+
 Decrease item quantity by 1. If quantity becomes 0, the item is removed.
 
 ```typescript
@@ -120,6 +125,7 @@ decreaseQuantity(productId);
 ```
 
 ##### `clearCart()`
+
 Remove all items from the cart.
 
 ```typescript
@@ -131,6 +137,7 @@ clearCart();
 #### Calculations
 
 ##### `getItemCount()`
+
 Get the total number of items in the cart (sum of all quantities).
 
 ```typescript
@@ -140,6 +147,7 @@ const totalItems = getItemCount(); // e.g., 5
 ```
 
 ##### `getTotals()`
+
 Calculate all cart totals including subtotal, shipping, tax, discount, and total.
 
 ```typescript
@@ -149,19 +157,21 @@ const { subtotal, shipping, tax, discount, total } = getTotals();
 ```
 
 Returns:
+
 ```typescript
 {
-  subtotal: number;    // Sum of all item prices
-  shipping: number;    // Shipping cost (FREE over $100)
-  tax: number;        // Tax amount (10%)
-  discount: number;   // Discount amount (for future coupon codes)
-  total: number;      // Final total
+  subtotal: number; // Sum of all item prices
+  shipping: number; // Shipping cost (FREE over $100)
+  tax: number; // Tax amount (10%)
+  discount: number; // Discount amount (for future coupon codes)
+  total: number; // Final total
 }
 ```
 
 #### Utility Functions
 
 ##### `getItemById(productId: number)`
+
 Get a specific cart item by product ID.
 
 ```typescript
@@ -174,6 +184,7 @@ if (item) {
 ```
 
 ##### `isInCart(productId: number)`
+
 Check if a product is already in the cart.
 
 ```typescript
@@ -185,6 +196,7 @@ if (isInCart(productId)) {
 ```
 
 ##### `clearError()`
+
 Clear any error messages.
 
 ```typescript
@@ -198,6 +210,7 @@ if (error) {
 #### Server Synchronization (for authenticated users)
 
 ##### `syncCartWithServer()`
+
 Sync the current cart state with the server.
 
 ```typescript
@@ -207,6 +220,7 @@ await syncCartWithServer();
 ```
 
 ##### `fetchCartFromServer()`
+
 Fetch the cart from the server and replace local cart.
 
 ```typescript
@@ -216,6 +230,7 @@ await fetchCartFromServer();
 ```
 
 ##### `mergeLocalCartWithServer()`
+
 Merge the local cart with the server cart (useful after login).
 
 ```typescript
@@ -272,7 +287,7 @@ function CartPage() {
   return (
     <div>
       <h1>Shopping Cart</h1>
-      
+
       {items.map((item) => (
         <div key={item.productId}>
           <p>{item.name}</p>
@@ -350,9 +365,9 @@ function CartManager() {
 You can modify these constants in `store/cartStore.ts`:
 
 ```typescript
-const TAX_RATE = 0.1;                    // 10% tax
-const FREE_SHIPPING_THRESHOLD = 100;     // Free shipping over $100
-const SHIPPING_COST = 15;                // Flat shipping cost
+const TAX_RATE = 0.1; // 10% tax
+const FREE_SHIPPING_THRESHOLD = 100; // Free shipping over $100
+const SHIPPING_COST = 15; // Flat shipping cost
 ```
 
 ---
@@ -362,6 +377,7 @@ const SHIPPING_COST = 15;                // Flat shipping cost
 The cart store expects these API endpoints:
 
 ### 1. Sync Cart
+
 ```
 POST /cart/sync
 Authorization: Bearer {token}
@@ -369,6 +385,7 @@ Body: { items: CartItem[] }
 ```
 
 ### 2. Fetch Cart
+
 ```
 GET /cart
 Authorization: Bearer {token}
@@ -376,6 +393,7 @@ Response: { items: CartItem[] }
 ```
 
 ### 3. Merge Cart
+
 ```
 POST /cart/merge
 Authorization: Bearer {token}
@@ -391,29 +409,29 @@ Response: { items: CartItem[] }
 
 ```typescript
 type CartItem = {
-  id: number;              // Temporary local ID
-  productId: number;       // Product ID from product store
-  name: string;           // Product name
-  price: number;          // Current price
+  id: number; // Temporary local ID
+  productId: number; // Product ID from product store
+  name: string; // Product name
+  price: number; // Current price
   originalPrice?: number; // Original price (for discounts)
-  quantity: number;       // Number of items
-  image: string;          // Product image URL
-  category: string;       // Product category
-  discount?: number;      // Discount percentage
-  maxStock?: number;      // Max available stock (optional)
-}
+  quantity: number; // Number of items
+  image: string; // Product image URL
+  category: string; // Product category
+  discount?: number; // Discount percentage
+  maxStock?: number; // Max available stock (optional)
+};
 ```
 
 ### CartTotals
 
 ```typescript
 type CartTotals = {
-  subtotal: number;   // Sum of all items
-  shipping: number;   // Shipping cost
-  tax: number;        // Tax amount
-  discount: number;   // Total discount
-  total: number;      // Final total
-}
+  subtotal: number; // Sum of all items
+  shipping: number; // Shipping cost
+  tax: number; // Tax amount
+  discount: number; // Total discount
+  total: number; // Final total
+};
 ```
 
 ---
@@ -443,15 +461,18 @@ The `loading` and `error` states are NOT persisted.
 ## Troubleshooting
 
 ### Cart not persisting
+
 - Check browser localStorage is enabled
 - Check for localStorage quota exceeded errors
 
 ### Server sync failing
+
 - Verify API endpoints are correct
 - Check authentication token is valid
 - Ensure backend is accepting the correct data format
 
 ### Items duplicating
+
 - Make sure you're using `productId` consistently
 - The store handles duplicates automatically, but ensure product IDs are unique
 
@@ -474,7 +495,7 @@ Potential features to add:
 ## Support
 
 For questions or issues, please check:
+
 - This documentation
 - The implementation in `store/cartStore.ts`
 - Example usage in `app/cart/page.tsx` and `components/products/ProductCard.tsx`
-

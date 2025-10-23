@@ -6,6 +6,7 @@ import { FiShoppingCart, FiUser } from 'react-icons/fi';
 import './Header.css';
 import { useUserStore } from '@/store/userStore';
 import { BiLogOut } from 'react-icons/bi';
+import Image from 'next/image';
 
 interface HeaderProps {
   cartItemsCount?: number;
@@ -22,14 +23,23 @@ function Header({ cartItemsCount = 0 }: HeaderProps) {
       <div className="header-container">
         {/* Logo & Brand */}
         <div className="header-left">
-          <button
-            className="logo-button"
-            onClick={() => router.push('/')}
-            aria-label="Go to home"
-          >
-            <h1 className="site-title">Secure Ecommerce</h1>
-          </button>
-          <p className="site-tagline">Your one-stop shop for everything</p>
+          <Image
+            src="/se logo.png"
+            alt="Secure Ecommerce"
+            width={50}
+            height={50}
+            className="logo-image"
+          />
+          <div className="brand-content">
+            <button
+              className="logo-button"
+              onClick={() => router.push('/')}
+              aria-label="Go to home"
+            >
+              <h1 className="site-title">Secure Ecommerce</h1>
+            </button>
+            <p className="site-tagline">Your one-stop shop for everything</p>
+          </div>
         </div>
 
         {/* Actions */}
@@ -57,6 +67,14 @@ function Header({ cartItemsCount = 0 }: HeaderProps) {
             </div>
           )}
           {isAuthenticated && (
+            <button
+              className="link-button"
+              onClick={() => router.push('/orders')}
+            >
+              My Orders
+            </button>
+          )}
+          {isAuthenticated && (
             <button className="logout_button" onClick={() => logout()}>
               <BiLogOut size={24} />
             </button>
@@ -64,6 +82,7 @@ function Header({ cartItemsCount = 0 }: HeaderProps) {
           {/* Cart Button */}
           <button
             className="cart-button"
+            disabled={!isAuthenticated}
             onClick={() => router.push('/cart')}
             aria-label="View cart"
           >

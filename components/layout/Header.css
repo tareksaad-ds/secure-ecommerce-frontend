@@ -28,10 +28,15 @@
 
 .header-left {
   display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+}
+.brand-content {
+  display: flex;
   flex-direction: column;
   gap: 4px;
 }
-
 .logo-button {
   background: none;
   border: none;
@@ -124,6 +129,33 @@
   font-size: medium;
   color: var(--primary);
 }
+.link-button {
+  background: none;
+  border: none;
+  color: var(--primary);
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+  font-size: 14px;
+  transition: color 0.2s ease;
+}
+
+.link-button:hover:not(:disabled) {
+  color: var(--primary-light);
+  text-decoration: underline;
+}
+
+.link-button:focus {
+  outline: 2px solid var(--accent-sky);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+.link-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 /* ===========================
    CART BUTTON
    =========================== */

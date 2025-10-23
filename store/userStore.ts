@@ -1,8 +1,9 @@
 import axios from 'axios';
 import { create } from 'zustand';
+import { useCartStore } from './cartStore';
 
 type UserInfo = {
-  id: string;
+  id: number;
   name: string;
   email: string;
   avatarUrl?: string;
@@ -74,6 +75,13 @@ export const useUserStore = create<UserState>((set) => ({
   },
 
   logout: () => {
+    // Clear cart items when logging out
+    try {
+      useCartStore.getState().clearCart();
+    } catch {
+      // ignore if cart store not initialized yet
+    }
+
     set({
       isAuthenticated: false,
       userInfo: null,
@@ -83,7 +91,7 @@ export const useUserStore = create<UserState>((set) => ({
   },
   validateAuth: async () => {
     const token = localStorage.getItem('token');
-    
+
     // If no token exists, set as unauthenticated
     if (!token) {
       set({
@@ -103,7 +111,7 @@ export const useUserStore = create<UserState>((set) => ({
           },
         }
       );
-      
+
       if (response.status === 200) {
         set({
           isAuthenticated: true,
@@ -111,7 +119,7 @@ export const useUserStore = create<UserState>((set) => ({
         });
         return true;
       }
-      
+
       return false;
     } catch (err: unknown) {
       // Handle 401 or any other error by clearing invalid token
@@ -119,7 +127,7 @@ export const useUserStore = create<UserState>((set) => ({
         // Token is invalid or expired, clear it
         localStorage.removeItem('token');
       }
-      
+
       set({
         isAuthenticated: false,
         userInfo: null,

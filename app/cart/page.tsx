@@ -1,15 +1,19 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Header, Footer } from '@/components/layout';
 import { CartItem, CartSummary, EmptyCart } from '@/components/cart';
+import { PaymentForm } from '@/components/payment';
+import { Modal } from '@/components/ui';
 import { useCartStore } from '@/store/cartStore';
 import { useUserStore } from '@/store/userStore';
+import { useOrderStore } from '@/store/orderStore';
 import './cart.css';
 
 export default function CartPage() {
   const router = useRouter();
+  const [showPayment, setShowPayment] = useState(false);
 
   // Get cart state and actions from store
   const {
@@ -18,12 +22,15 @@ export default function CartPage() {
     removeItem,
     getTotals,
     getItemCount,
-    clearCart,
     mergeLocalCartWithServer,
+    clearCart,
   } = useCartStore();
 
   // Get user state
-  const { isAuthenticated } = useUserStore();
+  const { isAuthenticated, validateAuth } = useUserStore();
+
+  // Get order store
+  const { createOrder } = useOrderStore();
 
   // Merge cart with server on mount if authenticated
   useEffect(() => {
@@ -32,7 +39,14 @@ export default function CartPage() {
         // Silently fail - local cart will still work
       });
     }
-  }, [isAuthenticated, mergeLocalCartWithServer]);
+  }, [cartItems.length, isAuthenticated, mergeLocalCartWithServer]);
+
+  // Redirect to auth if not authenticated
+  useEffect(() => {
+    if (!isAuthenticated) {
+      router.push('/auth');
+    }
+  }, [isAuthenticated, router]);
 
   // Convert CartItem to CartItemData for component compatibility
   const cartItemsData = cartItems.map((item) => ({
@@ -51,25 +65,69 @@ export default function CartPage() {
   const handleRemoveItem = (id: number) => {
     removeItem(id);
   };
-
-  const handleCheckout = () => {
-    if (!isAuthenticated) {
-      // Redirect to auth page if not logged in
-      router.push('/auth');
-      return;
-    }
-
-    // Proceed to checkout
-    // eslint-disable-next-line no-console
-    console.log('Proceeding to checkout with items:', cartItems);
-    // TODO: Navigate to checkout page when implemented
-    alert('Checkout functionality will be implemented soon!');
+  const handleCheckout = async () => {
+    setShowPayment(true);
   };
 
+  const handlePaymentSuccess = async (paymentIntent: unknown) => {
+    console.warn('Payment successful:', paymentIntent);
+
+    try {
+      // Validate authentication before creating order
+      const authValid = validateAuth ? await validateAuth() : false;
+
+      if (!authValid) {
+        throw new Error('Authentication required to create order');
+      }
+
+      if (cartItems.length === 0) {
+        throw new Error('Cart is empty');
+      }
+
+      // Create order data according to DTO structure
+      const orderData = {
+        productIds: cartItems.map((item) => item.productId),
+        totalAmount: getTotals().total,
+      };
+
+      console.warn('Creating order with data:', orderData);
+
+      // Create the order
+      const newOrder = await createOrder(orderData);
+      console.warn('Order created successfully:', newOrder);
+
+      // Clear the cart after successful order creation
+      clearCart();
+
+      // Redirect to success page
+      router.push('/checkout/success');
+    } catch (error) {
+      console.error('Failed to create order:', error);
+
+      // Show user-friendly error message
+      const errorMessage =
+        error instanceof Error ? error.message : 'Failed to create order';
+      alert(`Payment successful, but ${errorMessage}. Please contact support.`);
+
+      // Still clear cart and redirect since payment was successful
+      clearCart();
+      router.push('/checkout/success');
+    }
+  };
+
+  const handlePaymentError = (error: unknown) => {
+    console.error('Payment failed:', error);
+    alert('Payment failed. Please try again.');
+  };
   // Get calculated totals from store
   const { subtotal, shipping, tax } = getTotals();
   const itemCount = getItemCount();
   const isEmpty = cartItems.length === 0;
+
+  // Do not render page content while redirecting unauthenticated users
+  if (!isAuthenticated) {
+    return null;
+  }
 
   return (
     <div className="cart-page">
@@ -120,6 +178,19 @@ export default function CartPage() {
       </main>
 
       <Footer />
+
+      {/* Payment Modal */}
+      <Modal
+        isOpen={showPayment}
+        onClose={() => setShowPayment(false)}
+        title="Complete Payment"
+      >
+        <PaymentForm
+          amount={subtotal + shipping + tax}
+          onSuccess={handlePaymentSuccess}
+          onError={handlePaymentError}
+        />
+      </Modal>
     </div>
   );
 }

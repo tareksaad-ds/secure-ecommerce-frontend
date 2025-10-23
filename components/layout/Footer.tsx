@@ -4,6 +4,7 @@ import React from 'react';
 import { useRouter } from 'next/navigation';
 import { FiGithub, FiTwitter, FiInstagram, FiLinkedin } from 'react-icons/fi';
 import './Footer.css';
+import Image from 'next/image';
 
 function Footer() {
   const router = useRouter();
@@ -16,6 +17,13 @@ function Footer() {
         <div className="footer-main">
           {/* Brand & Description */}
           <div className="footer-brand-section">
+            <Image
+              src="/se logo.png"
+              alt="Secure Ecommerce"
+              width={50}
+              height={50}
+              className="logo-image"
+            />
             <h3 className="footer-brand">Secure Ecommerce</h3>
             <p className="footer-tagline">
               Your trusted destination for quality products at great prices.
