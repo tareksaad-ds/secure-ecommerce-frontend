@@ -247,6 +247,12 @@
   }
 }
 
+@media (max-width: 600px) {
+  .site-title {
+    display: none;
+  }
+}
+
 @media (max-width: 480px) {
   .site-tagline {
     display: none;
